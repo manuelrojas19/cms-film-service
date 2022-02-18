@@ -25,7 +25,7 @@ public class Actor {
     @Column(columnDefinition = "TEXT")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(mappedBy = "actors", fetch = FetchType.LAZY)
     private List<Film> films;
 
     @CreationTimestamp
