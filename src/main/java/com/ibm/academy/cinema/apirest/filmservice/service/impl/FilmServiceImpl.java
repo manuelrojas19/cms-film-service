@@ -32,12 +32,30 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<Film> findAll() {
         List<Film> films = filmRepository.findAll();
+        if (films.isEmpty())
+            throw new RuntimeException("Not founded");
         return films;
     }
 
     @Override
     public Film create(Film film) {
         return filmRepository.save(film);
+    }
+
+    @Override
+    public Film update(Long id, Film film) {
+        Film filmToUpdate = filmRepository.findById(id).orElseThrow();
+        filmToUpdate.setTitle(film.getTitle());
+        filmToUpdate.setDescription(film.getDescription());
+        filmToUpdate.setDate(filmToUpdate.getDate());
+        return filmRepository.save(filmToUpdate);
+    }
+
+
+    @Override
+    public void delete(Long id) {
+        Film film = filmRepository.findById(id).orElseThrow();
+        filmRepository.delete(film);
     }
 
     @Override
